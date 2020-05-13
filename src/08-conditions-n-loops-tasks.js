@@ -393,8 +393,21 @@ function getCommonDirectoryPath(paths) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const aNumRows = m1.length;
+  const aNumCols = m1[0].length;
+  const bNumCols = m2[0].length;
+  const m = new Array(aNumRows); // initialize array of rows
+  for (let r = 0; r < aNumRows; r += 1) {
+    m[r] = new Array(bNumCols); // initialize the current row
+    for (let c = 0; c < bNumCols; c += 1) {
+      m[r][c] = 0; // initialize the current cell
+      for (let i = 0; i < aNumCols; i += 1) {
+        m[r][c] += m1[r][i] * m2[i][c];
+      }
+    }
+  }
+  return m;
 }
 
 
@@ -428,8 +441,41 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  // 123
+  if (position[0][0] === position[0][1] && position[0][0] === position[0][2]) {
+    if (position[0][0] !== undefined) return position[0][0];
+  }
+  // 456
+  if (position[1][0] === position[1][1] && position[1][0] === position[1][2]) {
+    if (position[1][0] !== undefined) return position[1][0];
+  }
+  // 789
+  if (position[2][0] === position[2][1] && position[2][0] === position[2][2]) {
+    if (position[2][0] !== undefined) return position[2][0];
+  }
+  // 147
+  if (position[0][0] === position[1][0] && position[0][0] === position[2][0]) {
+    if (position[0][0] !== undefined) return position[0][0];
+  }
+  // 258
+  if (position[0][1] === position[1][1] && position[0][1] === position[2][1]) {
+    if (position[0][1] !== undefined) return position[0][1];
+  }
+  // 369
+  if (position[0][2] === position[1][2] && position[0][2] === position[2][2]) {
+    if (position[0][2] !== undefined) return position[0][2];
+  }
+  // 159
+  if (position[0][0] === position[1][1] && position[0][0] === position[2][2]) {
+    if (position[0][0] !== undefined) return position[0][0];
+  }
+  // 357
+  if (position[0][2] === position[1][1] && position[0][2] === position[2][0]) {
+    if (position[0][2] !== undefined) return position[0][2];
+  }
+
+  return undefined;
 }
 
 
