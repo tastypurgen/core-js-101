@@ -273,13 +273,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  const result = [];
-  for (let i = 0; i < arr.length; i += 1) {
-    for (let j = 0; j <= i; j += 1) {
-      result.push(arr[i]);
-    }
-  }
-  return result;
+  return arr.reduce((acc, item, i) => acc.concat(new Array(i + 1).fill(item)), []);
 }
 
 
@@ -317,8 +311,9 @@ function get3TopItems(arr) {
  */
 function getPositivesCount(arr) {
   let count = 0;
-  arr.forEach((key) => {
+  arr.map((key) => {
     if (typeof key === 'number' && key > 0) count += 1;
+    return null;
   });
   return count;
 }
@@ -383,8 +378,9 @@ function getItemsSum(arr) {
  */
 function getFalsyValuesCount(arr) {
   let count = 0;
-  arr.forEach((key) => {
+  arr.map((key) => {
     if (!key) count += 1;
+    return null;
   });
   return count;
 }
@@ -479,16 +475,11 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 function getIdentityMatrix(n) {
-  const result = [];
-  for (let i = 0; i < n; i += 1) {
-    const row = [];
-    for (let j = 0; j < n; j += 1) {
-      if (i === j) row.push(1);
-      else row.push(0);
-    }
-    result.push(row);
-  }
-  return result;
+  return new Array(n).fill(n).map((item, i) => {
+    const result = new Array(n).fill(0);
+    result[i] = 1;
+    return result;
+  });
 }
 
 /**
@@ -505,10 +496,9 @@ function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  const result = [];
-  for (let i = start; i <= end; i += 1) {
-    result.push(i);
-  }
+  let result = [];
+  result = new Array(end - start + 1).fill(start);
+  result = result.map((a, i) => a + i);
   return result;
 }
 
@@ -559,10 +549,11 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
   const map = new Map();
-  array.forEach((a) => {
+  array.map((a) => {
     if (map.has(keySelector(a))) {
       map.set(keySelector(a), map.get(keySelector(a)).concat(valueSelector(a)));
     } else map.set(keySelector(a), [valueSelector(a)]);
+    return null;
   });
   return map;
 }
@@ -601,8 +592,9 @@ function selectMany(arr, childrenSelector) {
  */
 function getElementByIndexes(arr, indexes) {
   let result = arr;
-  indexes.forEach((key) => {
+  indexes.map((key) => {
     result = result[key];
+    return null;
   });
   return result;
 }
